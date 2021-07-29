@@ -1,4 +1,3 @@
-# weather-app
 # Weather App - Node.js Project
 
 *  As part of learning, I created a Weather web app.
