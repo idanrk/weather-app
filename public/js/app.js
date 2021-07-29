@@ -8,6 +8,7 @@ const smsg = document.querySelector('#m2')
 weatherForm.addEventListener('submit' , (e) => {
     e.preventDefault()
     fmsg.textContent="Loading..."
+    smsg.textContent=""
     fetch('/weather?address=' + search.value).then((response) => {
     response.json().then((data) => {
         if(data.error){
