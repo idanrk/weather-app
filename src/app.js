@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000
 // Define paths for Express config
 const publicDirectoryPath = path.join(__dirname, '../public')
 const viewsPath = path.join(__dirname, '../templates/views')
-const partialPath = path.join(__dirname,'../templates/partials')
+const partialPath = path.join(__dirname, '../templates/partials')
 
 // Setup handlebars engine and views location
 app.set('view engine', 'hbs')
@@ -26,9 +26,8 @@ app.get('', (req, res) => {
     })
 })
 
-app.get('/products',(req,res)=>{
-    if(!req.query.search)
-    {
+app.get('/products', (req, res) => {
+    if (!req.query.search) {
         return res.send("Must provide search value")
     }
     return res.send([])
@@ -44,32 +43,33 @@ app.get('/about', (req, res) => {
 app.get('/help', (req, res) => {
     res.render('help', {
         helpText: 'This is some helpful text.',
-        title:'Help page',
-        name:name
+        title: 'Help page',
+        name: name
     })
 })
 
 app.get('/weather', (req, res) => {
-    if(!req.query.address)
-        {return res.send({'error':"Must provide address"})}
-    geocode(req.query.address,(error,{ latitude, longitude, location }={})=>{
-    if(error){return res.send({error})} //error handler
-    forecast(latitude, longitude,(error,forecastData)=>{
-    
-        if(error){return res.send({error})}//error handler
-    
-        res.send({forecast:forecastData,
-            location,
-            address:req.query.address})
+    if (!req.query.address) { return res.send({ 'error': "Must provide address" }) }
+    geocode(req.query.address, (error, { latitude, longitude, location } = {}) => {
+        if (error) { return res.send({ error }) } //error handler
+        forecast(latitude, longitude, (error, forecastData) => {
+
+            if (error) { return res.send({ error }) }//error handler
+
+            res.send({
+                forecast: forecastData,
+                location,
+                address: req.query.address
+            })
         })
     })
 })
 
-app.get('*',(req,res)=>{
-res.render('404',{
-    title:'404 Page not found',
-    name:name
-})
+app.get('*', (req, res) => {
+    res.render('404', {
+        title: '404 Page not found',
+        name: name
+    })
 })
 
-app.listen(port,()=>{console.log("Listening on: "+port)})
+app.listen(port, () => { console.log("Listening on: " + port) })
